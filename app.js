@@ -2,7 +2,8 @@ var inquirer = require("inquirer");
 var mysql = require("mysql");
 var cTable = require("console.table");
 var express = require("express");
-const {selectRoles, selectEmloyee} = require("./lib/queries");
+const {selectRoles, selectEmloyee} = require("./assets/queries");
+
 
 
 var connection = mysql.createConnection({
@@ -10,7 +11,7 @@ var connection = mysql.createConnection({
     port: 3306,
     user: "root",
     password: "efMAY17!",
-    database: "employee_trackerDB"
+    database: "employee_tracker_db"
 });
 
 connection.connect(function (err) {
@@ -19,33 +20,38 @@ connection.connect(function (err) {
 });
 
 
+
+
 function startAPP() {
-    console.log("EMPLOYEE TRACKER");
+   
+    console.log("EMPLOYEE TRACKER DATABASE");
+    
     return inquirer.prompt([
         {
             type: "list",
             name: "action",
             message: "What would you like to do?",
             choices: [
-                "View departments, roles, and/or employees",
-                "Add departments, roles, and/or employees",
-                "Update an exsisting employee role"
+                "View departments, roles, or employees",
+                "Add departments, roles, or employees",
+                "Update exsisting employee role",
             ]
         }
     ]).then(function (answer) {
         switch (answer.action) {
-            case "View departments, roles, and/or employees":
+            case "View departments, roles, or employees":
                 view();
                 break;
-            case "Add departments, roles, and/or employees":
+            case "Add departments, roles, or employees":
                 add();
                 break;
-            case "Update an exsisting employee role":
+            case "Update exsisting employee role":
                 update();
                 break;
         }
     });
 };
+
 
 function view() {
     return inquirer.prompt([
@@ -57,7 +63,7 @@ function view() {
                 "Departments",
                 "Roles",
                 "Employees",
-                "Return to the beginning"
+                "Back to main menu"
             ]
         }
     ]).then(function (answer) {
@@ -71,7 +77,7 @@ function view() {
             case "Employees":
                 viewEmployees();
                 break;
-            case "Return to the beginning":
+            case "Back to main menu":
                 startAPP();
                 break;
         }
@@ -107,6 +113,7 @@ function viewEmployees() {
     });
 }
 
+
 function add() {
     return inquirer.prompt([
         {
@@ -117,7 +124,7 @@ function add() {
                 "Department",
                 "Role",
                 "Employee",
-                "Return to the beginning"
+                "Back to main menu"
             ]
         }
     ]).then(function (answer) {
@@ -131,22 +138,23 @@ function add() {
             case "Employee":
                 addEmployees();
                 break;
-            case "Return to the beginning":
+            case "Back to main menu":
                 startAPP();
                 break;
         }
     });
 };
 
+
 function addDepartment() {
     return inquirer.prompt([
         {
             type: "input",
             name: "name",
-            message: "Enter the name of the department",
+            message: "What is the name of the department?",
         },
     ]).then(function (answer) {
-        connection.query("INSERT INTO department_table (department) VALUES ('" + answer.name + "');", function (err, result) {
+        connection.query("INSERT INTO department_table (department_name) VALUES ('" + answer.name + "');", function (err, result) {
             if (err) throw err;
             viewDepartment();
             startAPP()
@@ -159,17 +167,17 @@ function addRoles() {
         {
             type: "input",
             name: "name",
-            message: "Enter the title of this role",
+            message: "What is the title of this role?",
         },
         {
             type: "number",
             name: "salary",
-            message: "Enter the salary of this role",
+            message: "What is the salary of this role (only enter a number, no comas)?",
         },
         {
             type: "number",
             name: "id",
-            message: "Enter Department ID number",
+            message: "What is the Department ID number (refer to department view)?",
         },
     ]).then(function (answers) {
         connection.query('INSERT INTO role_table (title, salary, dep_ID) VALUES ("' + answers.name + '",' + answers.salary + ',' + answers.id + ');' , function (err, result) {
@@ -185,25 +193,25 @@ function addEmployees() {
         {
             type: "input",
             name: "name",
-            message: "What is the Employee's first name?",
+            message: "What is the first name of the Employee?",
         },
         {
             type: "input",
             name: "name",
-            message: "What is the Employee's last name?",
+            message: "What is the last name of the Employee?",
         },
         {
             type: "input",
             name: "name",
-            message: "What is the Employee's role ID?",
+            message: "What is the employees role ID?",
         },
         {
             type: "input",
             name: "name",
-            message: "Does this employee have a manager ID (no - type 'null')?",
+            message: "Does this employee have a manager ID (if not, type null)?",
         },
     ]).then(function (answer) {
-        connection.query("INSERT INTO department_table (department) VALUES ('" + answer.name + "');", function (err, result) {
+        connection.query("INSERT INTO department_table (department_name) VALUES ('" + answer.name + "');", function (err, result) {
             if (err) throw err;
             viewDepartment();
             startAPP()
@@ -211,13 +219,15 @@ function addEmployees() {
     });
 };
 
+
 function update() {
     return inquirer.prompt([
         {
             type: "list",
             name: "action",
-            message: "Which employee would you like to update?",
+            message: "What employee would you like to update",
             choices: [
+               
             ]
         }
     ]).then(function (answer) {
@@ -226,6 +236,7 @@ function update() {
     });
 };
 
+
 function endAPP() {
-    console.log("Exiting Console")
+    console.log("Exit console -- actions are complete --")
 };
