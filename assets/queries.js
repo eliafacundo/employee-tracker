@@ -5,5 +5,5 @@ module.exports = {
         FROM role_table 
         INNER JOIN department_table ON role_table.dep_ID = department_table.ID;`,
 
-    selectEmployee: (hello) => `SELECT ${hello}`
+    selectEmployee: (hi) => `SELECT ${hi}`
 }

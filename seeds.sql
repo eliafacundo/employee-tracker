@@ -1,30 +1,38 @@
-USE employee_manager_database;
-
-INSERT INTO department_table (department_name)
-VALUES ("Store Design");
+USE employee_tracker_db;
 
 INSERT INTO department_table (department_name)
 VALUES ("Merchandising");
 
 INSERT INTO department_table (department_name)
-VALUES ("Fixture Design");
+VALUES ("Customer Service");
+
+INSERT INTO department_table (department_name)
+VALUES ("Sales");
+
+INSERT INTO department_table (department_name)
+VALUES ("Engineering");
 
 
 INSERT INTO role_table (title, salary, dep_ID)
-VALUES ("Store Planner", 55000, 1);
+VALUES ("Visual Merchandiser", 40000, 1);
 
 INSERT INTO role_table (title, salary, dep_ID)
-VALUES ("Merchandiser", 35000, 2);
+VALUES ("Customer Service Representative", 30000, 2);
 
 INSERT INTO role_table (title, salary, dep_ID)
-VALUES ("Fixture Designer", 45000, 3);
+VALUES ("Sales Lead", 35000, 3);
 
+INSERT INTO role_table (title, salary, dep_ID)
+VALUES ("Software Engineer", 50000, 4);
 
 INSERT INTO employee_table (first_name, last_name, role_ID, mng_ID)
-VALUES ("Elia", "Carraco", 1, NULL);
+VALUES ("Elia", "Carrasco", 1, NULL);
 
 INSERT INTO employee_table (first_name, last_name, role_ID, mng_ID)
 VALUES ("Claudia", "Rodriguez", 1, 1);
 
 INSERT INTO employee_table (first_name, last_name, role_ID, mng_ID)
 VALUES ("Jesus", "Facundo", 3, NULL);
+
+INSERT INTO employee_table (first_name, last_name, role_ID, mng_ID)
+VALUES ("Jon", "Smith", 2, 1);

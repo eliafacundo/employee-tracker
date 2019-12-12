@@ -21,7 +21,6 @@ connection.connect(function (err) {
 
 
 
-
 function startAPP() {
    
     console.log("EMPLOYEE TRACKER DATABASE");
@@ -34,7 +33,7 @@ function startAPP() {
             choices: [
                 "View departments, roles, or employees",
                 "Add departments, roles, or employees",
-                "Update exsisting employee role",
+                "Update an exsisting employee role",
             ]
         }
     ]).then(function (answer) {
@@ -45,7 +44,7 @@ function startAPP() {
             case "Add departments, roles, or employees":
                 add();
                 break;
-            case "Update exsisting employee role":
+            case "Update an exsisting employee role":
                 update();
                 break;
         }
@@ -63,7 +62,7 @@ function view() {
                 "Departments",
                 "Roles",
                 "Employees",
-                "Back to main menu"
+                "Return to main menu"
             ]
         }
     ]).then(function (answer) {
@@ -77,7 +76,7 @@ function view() {
             case "Employees":
                 viewEmployees();
                 break;
-            case "Back to main menu":
+            case "Return to main menu":
                 startAPP();
                 break;
         }
@@ -124,7 +123,7 @@ function add() {
                 "Department",
                 "Role",
                 "Employee",
-                "Back to main menu"
+                "Return to main menu"
             ]
         }
     ]).then(function (answer) {
@@ -138,7 +137,7 @@ function add() {
             case "Employee":
                 addEmployees();
                 break;
-            case "Back to main menu":
+            case "Return to main menu":
                 startAPP();
                 break;
         }
@@ -151,7 +150,7 @@ function addDepartment() {
         {
             type: "input",
             name: "name",
-            message: "What is the name of the department?",
+            message: "Enter the name of the department",
         },
     ]).then(function (answer) {
         connection.query("INSERT INTO department_table (department_name) VALUES ('" + answer.name + "');", function (err, result) {
@@ -167,17 +166,17 @@ function addRoles() {
         {
             type: "input",
             name: "name",
-            message: "What is the title of this role?",
+            message: "Enter the title of this role?",
         },
         {
             type: "number",
             name: "salary",
-            message: "What is the salary of this role (only enter a number, no comas)?",
+            message: "Enter the salary of this role",
         },
         {
             type: "number",
             name: "id",
-            message: "What is the Department ID number (refer to department view)?",
+            message: "Enter the Department ID number",
         },
     ]).then(function (answers) {
         connection.query('INSERT INTO role_table (title, salary, dep_ID) VALUES ("' + answers.name + '",' + answers.salary + ',' + answers.id + ');' , function (err, result) {
@@ -193,22 +192,22 @@ function addEmployees() {
         {
             type: "input",
             name: "name",
-            message: "What is the first name of the Employee?",
+            message: "Enter the Employee's first name",
         },
         {
             type: "input",
             name: "name",
-            message: "What is the last name of the Employee?",
+            message: "Enter the Employee's last name",
         },
         {
             type: "input",
             name: "name",
-            message: "What is the employees role ID?",
+            message: "Enter the Employee's role ID?",
         },
         {
             type: "input",
             name: "name",
-            message: "Does this employee have a manager ID (if not, type null)?",
+            message: "Does this employee have a manager ID (if no, type 'null')?",
         },
     ]).then(function (answer) {
         connection.query("INSERT INTO department_table (department_name) VALUES ('" + answer.name + "');", function (err, result) {
@@ -225,7 +224,7 @@ function update() {
         {
             type: "list",
             name: "action",
-            message: "What employee would you like to update",
+            message: "Which employee would you like to update?",
             choices: [
                
             ]
